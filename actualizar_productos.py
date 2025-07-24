@@ -80,3 +80,6 @@ def actualizar_producto():
         opcion = input("Ingrese el número de la opción: ")
         if opcion == '1':
             cambio_id()
+        elif opcion == '6':
+            print("Volviendo al menú principal...")
+            break
