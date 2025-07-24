@@ -1,4 +1,5 @@
 import os
+import productos as p
 import registro_productos as r
 import consulta_productos as c
 import actualizar_productos as a
@@ -24,6 +25,7 @@ def principal():
             a.actualizar_producto()
         elif opcion == "5":
             print("Saliendo del programa...")
+            p.conexion.close()
             break
         else:
             print("Opción no válida. Intente de nuevo.")
