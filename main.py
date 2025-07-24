@@ -25,7 +25,7 @@ def principal():
             a.actualizar_producto()
         elif opcion == "5":
             print("Saliendo del programa...")
-            p.conexion.close()
+            p.conexion_db().close()
             break
         else:
             print("Opción no válida. Intente de nuevo.")
