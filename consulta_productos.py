@@ -28,7 +28,7 @@ def consulta_de_producto():
             cursor = p.conexion.execute(f"SELECT id, descripcion, precio, cantidad FROM productos WHERE id={id_producto}")
             for producto in cursor:
                 encontrado = True
-                os.system("clear")
+                os.system("cls" if os.name == "nt" else "clear")
                 print(f"ID: {producto[0]}, Descripción: {producto[1]}, Precio: {producto[2]}, Cantidad: {producto[3]}")
                 input("Presione cualquier tecla para continuar...")
             if not encontrado:

@@ -7,6 +7,7 @@ def cambio_id():
     confirmacion = ''
     while True:
         os.system("cls" if os.name == "nt" else "clear")
+        p.conexion = p.conexion_db()
         print("ACTUALIZAR ID DEL PRODUCTO")
         conf = input("¿Desea continuar con el cambio? (s/n): ")
         if conf.lower() == 's':
@@ -15,7 +16,6 @@ def cambio_id():
                 print("El ID del producto debe ser un número positivo.")
                 input("Presione cualquier tecla para continuar...")
                 return
-            p.conexion = p.conexion_db()
             for id in p.conexion.execute(f"SELECT id FROM productos WHERE id = {id_producto}"):
                 if id_producto != id[0]:
                     print("Producto seleccionado de acuerdo al ID")
