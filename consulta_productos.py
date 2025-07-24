@@ -34,7 +34,6 @@ def consulta_de_producto():
             if not encontrado:
                 print(f"No se encontró un producto con ID {id_producto}.")
                 input("Presione cualquier tecla para continuar...")
-                p.conexion.close()
                 continue
             if id_producto <= 0:
                 print("El ID del producto debe ser un número entero positivo.")
@@ -44,7 +43,6 @@ def consulta_de_producto():
         elif opcion == '3':
             print("Volviendo al menú principal...")
             break
-            p.conexion.close()
 
         else:
             print("Opción no válida. Intente de nuevo.")
