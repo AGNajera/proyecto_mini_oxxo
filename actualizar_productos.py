@@ -60,11 +60,6 @@ def cambio_id():
             Conn.conexion.close()
             break
 
-        else:
-            print("Opción no válida, por favor intente de nuevo.")
-            input("Presione cualquier tecla para continuar...")
-            continue
-
 
 def actualizar_producto():
     while True:

@@ -34,7 +34,7 @@ def principal():
                 print("Opción no válida...")
                 input("Presione cualquier tecla para intentar de nuevo...")
         except ValueError:
-            print("Debe ingresar un número, no un carácter. Intente de nuevo.")
+            print("Debe ingresar el valor que se le indique. Intente de nuevo.")
             input("Presione cualquier tecla para intentar de nuevo...")
             continue
             

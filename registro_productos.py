@@ -65,8 +65,3 @@ def registro_de_producto():
                     print("Producto registrado exitosamente:")
                     input("Presione cualquier tecla para continuar...")
                     return id_producto, descripcion, precio, cantidad
-
-                else:
-                    print("Opción no válida, por favor intente de nuevo.")
-                    input("Presione cualquier tecla para continuar...")
-                    continue
