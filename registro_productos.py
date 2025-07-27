@@ -1,9 +1,9 @@
 import os
-import productos as p
+import db.conexion as Conn
 
 
 def error_0():
-    p.conexion = p.conexion_db()
+    Conn.conexion = Conn.conexion_db()
     print("Debe de teclear un número entero positivo")
     input("Presione cualquier tecla para continuar...")
     return registro_de_producto()
@@ -21,18 +21,18 @@ def registro_de_producto():
         else:
             print("REGISTRO DE PRODUCTOS")
             id_producto = int(input("ID del producto: "))
-            p.conexion = p.conexion_db()
+            Conn.conexion = Conn.conexion_db()
             if id_producto <= 0:
                 error_0()
                 continue
-            for id in p.conexion.execute("SELECT id FROM productos"):
+            for id in Conn.conexion.execute("SELECT id FROM productos"):
                 if id_producto == id[0]:
                     print("El ID del producto ya existe. Por favor, ingrese un ID único.")
                     input("Presione cualquier tecla para continuar...")
                     return registro_de_producto()
 
             descripcion = input("Descripción del producto: ")
-            for desc in p.conexion.execute("SELECT descripcion FROM productos"):
+            for desc in Conn.conexion.execute("SELECT descripcion FROM productos"):
                 if descripcion == desc[0]:
                     print("Este producto ya existe. Por favor, ingrese una descripción única.")
                     input("Presione cualquier tecla para continuar...")
@@ -58,7 +58,7 @@ def registro_de_producto():
                     print("Registro cancelado. Volviendo al menú principal...")
                     break
                 elif conf.lower() == 's':
-                    p.conexion.execute('''
+                    Conn.conexion.execute('''
                     INSERT INTO productos (id, descripcion, precio, cantidad)
                     VALUES (?, ?, ?, ?)
                     ''', (id_producto, descripcion, precio, cantidad))

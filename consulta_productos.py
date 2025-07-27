@@ -1,5 +1,5 @@
 import os
-import productos as p
+import db.conexion as Conn
 
 
 def consulta_de_producto():
@@ -15,17 +15,18 @@ def consulta_de_producto():
         if opcion == '1':
             os.system("cls" if os.name == "nt" else "clear")
             print("PRODUCTOS REGISTRADOS:")
-            p.conexion = p.conexion_db()
-            cursor = p.conexion.execute("SELECT * FROM productos")
+            Conn.conexion = Conn.conexion_db()
+            cursor = Conn.conexion.execute("SELECT * FROM productos")
             for fila in cursor:
                 print(f"ID: {fila[0]}, Descripción: {fila[1]}, Precio: {fila[2]}, Cantidad: {fila[3]}")
             input("Presione cualquier tecla para continuar...")
 
         elif opcion == '2':
             encontrado = None
+            os.system("cls" if os.name == "nt" else "clear")
             id_producto = int(input("Ingrese el ID del producto a consultar: "))
-            p.conexion = p.conexion_db()
-            cursor = p.conexion.execute(f"SELECT id, descripcion, precio, cantidad FROM productos WHERE id={id_producto}")
+            Conn.conexion = Conn.conexion_db()
+            cursor = Conn.conexion.execute(f"SELECT id, descripcion, precio, cantidad FROM productos WHERE id={id_producto}")
             for producto in cursor:
                 encontrado = True
                 os.system("cls" if os.name == "nt" else "clear")
@@ -33,10 +34,6 @@ def consulta_de_producto():
                 input("Presione cualquier tecla para continuar...")
             if not encontrado:
                 print(f"No se encontró un producto con ID {id_producto}.")
-                input("Presione cualquier tecla para continuar...")
-                continue
-            if id_producto <= 0:
-                print("El ID del producto debe ser un número entero positivo.")
                 input("Presione cualquier tecla para continuar...")
                 continue
 

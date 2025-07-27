@@ -1,12 +1,14 @@
 import os
-import productos as p
+import db.conexion as Conn
 import registro_productos as r
 import consulta_productos as c
 import actualizar_productos as a
+import db.productos # Crea la tabla sin hacer nada más
 
 
 def principal():
     while True:
+        Conn.conexion = Conn.conexion_db()
         os.system("cls" if os.name == "nt" else "clear")
         print("Seleccione la opción deseada:")
         print("1.- Registrar un producto")
@@ -26,7 +28,7 @@ def principal():
                 a.actualizar_producto()
             elif opcion == "5":
                 print("Saliendo del programa...")
-                p.conexion_db().close()
+                Conn.conexion.close()
                 break
             else:
                 print("Opción no válida...")
