@@ -13,7 +13,7 @@ def registro_de_producto():
     conf = ''
     while True:
         os.system("cls" if os.name == "nt" else "clear")
-        confirmacion = input("¿Desea registrar del producto? (s/n)")
+        confirmacion = input("¿Desea registrar del producto? (s/n): ")
         # Con lower da igual si el usuario escribe 'n' o 'N' el input lo pasa a minúscula
         if confirmacion.lower() == 'n':
             print("Registro cancelado. Volviendo al menú principal...")

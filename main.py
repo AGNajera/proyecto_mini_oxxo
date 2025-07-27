@@ -15,22 +15,27 @@ def principal():
         print("4.- Eliminar un producto")
         print("5.- Salir")
         opcion = input("Ingrese el número de la opción: ")
-        if opcion == "1":
-            r.registro_de_producto()
-            input("Presione cualquier tecla para continuar...")
-        elif opcion == "2":
-            c.consulta_de_producto()
-            input("Presione cualquier tecla para continuar...")
-        elif opcion == "3":
-            a.actualizar_producto()
-        elif opcion == "5":
-            print("Saliendo del programa...")
-            p.conexion_db().close()
-            break
-        else:
-            print("Opción no válida. Intente de nuevo.")
-            input("Presione cualquier tecla para continuar...")
-
+        try:
+            if opcion == "1":
+                r.registro_de_producto()
+                input("Presione cualquier tecla para continuar...")
+            elif opcion == "2":
+                c.consulta_de_producto()
+                input("Presione cualquier tecla para continuar...")
+            elif opcion == "3":
+                a.actualizar_producto()
+            elif opcion == "5":
+                print("Saliendo del programa...")
+                p.conexion_db().close()
+                break
+            else:
+                print("Opción no válida...")
+                input("Presione cualquier tecla para intentar de nuevo...")
+        except ValueError:
+            print("Debe ingresar un número, no un carácter. Intente de nuevo.")
+            input("Presione cualquier tecla para intentar de nuevo...")
+            continue
+            
 
 if __name__ == "__main__":
     principal()
