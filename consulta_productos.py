@@ -15,7 +15,6 @@ def consulta_de_producto():
         if opcion == '1':
             os.system("cls" if os.name == "nt" else "clear")
             print("PRODUCTOS REGISTRADOS:")
-            Conn.conexion = Conn.conexion_db()
             cursor = Conn.conexion.execute("SELECT * FROM productos")
             for fila in cursor:
                 print(f"ID: {fila[0]}, Descripción: {fila[1]}, Precio: {fila[2]}, Cantidad: {fila[3]}")
@@ -25,7 +24,6 @@ def consulta_de_producto():
             encontrado = None
             os.system("cls" if os.name == "nt" else "clear")
             id_producto = int(input("Ingrese el ID del producto a consultar: "))
-            Conn.conexion = Conn.conexion_db()
             cursor = Conn.conexion.execute(f"SELECT id, descripcion, precio, cantidad FROM productos WHERE id={id_producto}")
             for producto in cursor:
                 encontrado = True
@@ -33,7 +31,7 @@ def consulta_de_producto():
                 print(f"ID: {producto[0]}, Descripción: {producto[1]}, Precio: {producto[2]}, Cantidad: {producto[3]}")
                 input("Presione cualquier tecla para continuar...")
             if not encontrado:
-                print(f"No se encontró un producto con ID {id_producto}.")
+                print(f"No se encontró un producto con ID: '{id_producto}' .")
                 input("Presione cualquier tecla para continuar...")
                 continue
 

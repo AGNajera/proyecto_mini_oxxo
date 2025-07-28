@@ -3,7 +3,6 @@ import db.conexion as Conn
 
 
 def error_0():
-    Conn.conexion = Conn.conexion_db()
     print("Debe de teclear un número entero positivo")
     input("Presione cualquier tecla para continuar...")
     return registro_de_producto()
@@ -13,7 +12,7 @@ def registro_de_producto():
     conf = ''
     while True:
         os.system("cls" if os.name == "nt" else "clear")
-        confirmacion = input("¿Desea registrar del producto? (s/n): ")
+        confirmacion = input("¿Desea registrar un producto? (s/n): ")
         # Con lower da igual si el usuario escribe 'n' o 'N' el input lo pasa a minúscula
         if confirmacion.lower() == 'n':
             print("Registro cancelado. Volviendo al menú principal...")
@@ -21,7 +20,6 @@ def registro_de_producto():
         else:
             print("REGISTRO DE PRODUCTOS")
             id_producto = int(input("ID del producto: "))
-            Conn.conexion = Conn.conexion_db()
             if id_producto <= 0:
                 error_0()
                 continue
@@ -40,8 +38,7 @@ def registro_de_producto():
             if descripcion == "" or descripcion == " ":
                 print("La descripción del producto no puede estar vacía.")
                 input("Presione cualquier tecla para continuar...")
-                continue
-
+                return registro_de_producto()
             precio = float(input("Precio del producto: "))
             if precio <= 0:
                 error_0()
@@ -63,5 +60,5 @@ def registro_de_producto():
                     VALUES (?, ?, ?, ?)
                     ''', (id_producto, descripcion, precio, cantidad))
                     print("Producto registrado exitosamente:")
-                    input("Presione cualquier tecla para continuar...")
+                    Conn.conexion.commit()
                     return id_producto, descripcion, precio, cantidad
