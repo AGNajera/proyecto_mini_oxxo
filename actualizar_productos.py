@@ -29,19 +29,21 @@ def cambio_id():
                     confirmacion = input("\n¿Desea cambiar el ID de este producto? (s/n): ")
                     if confirmacion.lower() == 's':
                         id_nuevo = int(input("Nuevo ID del producto (Debe de ser > a 0 y no debe de coincidir con uno registrado): "))
+                        cursor = Conn.conexion.execute(f"SELECT id FROM productos WHERE id = {id_nuevo}")
                         if id_nuevo <= 0:
                             print("El ID del producto debe ser un número positivo.")
                             input("Presione cualquier tecla para continuar...")
                             return cambio_id()
-                        if id_nuevo == id_producto:
-                            print("El nuevo ID no puede ser el mismo que el actual.")
+                        if cursor.fetchone():
+                            print("El nuevo ID no puede ser el mismo que uno registrado previamente.")
                             input("Presione cualquier tecla para continuar...")
                             return cambio_id()
-                        Conn.conexion.execute(f"UPDATE productos SET id = {id_nuevo} WHERE id = {id_producto}")
-                        print("ID de producto actualizado.")
-                        input("Presione cualquier tecla para continuar...")
-                        Conn.conexion.commit()
-                        return id_nuevo
+                        else:
+                            cursor = Conn.conexion.execute(f"UPDATE productos SET id = {id_nuevo} WHERE id = {id_producto}")
+                            print("ID de producto actualizado.")
+                            input("Presione cualquier tecla para continuar...")
+                            Conn.conexion.commit()
+                            return actualizar_producto()
                     elif confirmacion.lower() == 'n':
                         print("No se ha realizado ningún cambio.")
                         input("Presione cualquier tecla para continuar...")
@@ -49,7 +51,7 @@ def cambio_id():
                     else:
                         print("Opción no válida, por favor intente de nuevo.")
                         input("Presione cualquier tecla para continuar...")
-                        continue 
+                        continue
             if not encontrado:
                 print(f"No se encontró un producto con ID: '{id_producto}' .")
                 input("Presione cualquier tecla para continuar...")
@@ -57,7 +59,7 @@ def cambio_id():
         else:
             print("Opción no válida, por favor intente de nuevo.")
             input("Presione cualquier tecla para continuar...")
-            continue  
+            continue
         
 
 def actualizar_producto():
