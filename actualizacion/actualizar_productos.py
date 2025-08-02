@@ -1,8 +1,9 @@
 import os
-import db.conexion as Conn
-import act_id
-import act_desc 
-import act_precio
+import actualizacion.act_id as act_id
+import actualizacion.act_desc as act_desc
+import actualizacion.act_precio as act_precio
+import actualizacion.act_cant as act_cant
+
 
 
 def actualizar_producto():
@@ -23,6 +24,8 @@ def actualizar_producto():
             act_desc.cambio_desc()
         elif opcion == '3':
             act_precio.cambio_precio()
+        elif opcion == '4':
+            act_cant.act_cantidad()
         elif opcion == '6':
             print("Volviendo al menú principal...")
             break

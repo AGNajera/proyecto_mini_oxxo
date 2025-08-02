@@ -10,7 +10,8 @@ def crear_tabla_productos():
             id INTEGER PRIMARY KEY,
             descripcion TEXT NOT NULL,
             precio REAL NOT NULL,
-            cantidad INTEGER NOT NULL
+            cantidad INTEGER NOT NULL,
+            fecha datetime NOT NULL
         )''')
         print("Tabla 'productos' creada exitosamente.")
     except sqlite3.OperationalError:

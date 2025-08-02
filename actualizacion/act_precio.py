@@ -21,7 +21,7 @@ def cambio_precio():
             print("Producto seleccionado de acuerdo al ID tecleado")
             for producto in cursor:
                 encontrado = True
-                print(f"\nID: {producto[0]}, Descripción: {producto[1]}, Precio: {producto[2]}, Cantidad: {producto[3]}")
+                print(f"\nID: {producto[0]}, Descripción: {producto[1]}, Precio: ${producto[2]}, Cantidad: {producto[3]}")
                 conf = ''
                 conf = input("\n¿Desea cambiar el ID de este producto? (s/n): ")
                 if conf.lower() == 'n':
