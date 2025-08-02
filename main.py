@@ -2,7 +2,7 @@ import os
 import db.conexion as Conn
 import registro_productos as r
 import consulta_productos as c
-import actualizar_productos as a
+import actualizacion.actualizar_productos as a
 import db.productos # Crea la tabla sin hacer nada más
 
 
