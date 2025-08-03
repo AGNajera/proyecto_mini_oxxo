@@ -1,6 +1,6 @@
 import os
 import db.conexion as Conn
-import datetime
+from datetime import datetime
 
 
 def error_0():
@@ -25,14 +25,14 @@ def registro_de_producto():
                 continue
             for id in Conn.conexion.execute("SELECT id FROM productos"):
                 if id_producto == id[0]:
-                    print("El ID del producto ya existe. Por favor, ingrese un ID único.")
+                    print("El ID del producto ya existe.")
                     input("Presione cualquier tecla para continuar...")
                     return registro_de_producto()
 
             descripcion = input("Descripción del producto: ")
             for desc in Conn.conexion.execute("SELECT descripcion FROM productos"):
                 if descripcion == desc[0]:
-                    print("Este producto ya existe. Por favor, ingrese una descripción única.")
+                    print("Este producto ya existe.")
                     input("Presione cualquier tecla para continuar...")
                     return registro_de_producto()
             if descripcion == "" or descripcion == " ":
@@ -52,11 +52,8 @@ def registro_de_producto():
                 print("La cantidad del producto no puede estar vacía o contener un espacio en blanco.")
                 input("Presione cualquier tecla para continuar...")
                 return registro_de_producto()
-            fecha_ingreso = datetime.strptime(input("Fecha de ingreso del producto (Año-Mes-Día): "), "%Y-%m-%d")
-            if fecha_ingreso > datetime.now():
-                print("La fecha de ingreso no puede ser futura.")
-                input("Presione cualquier tecla para continuar...")
-                return registro_de_producto()
+            fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            print(f"Fecha de registro: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
             # Por si escribe cualquier cosa que no sea 's' o 'n'
             conf = ''
             conf = input("Está seguro de registrar este producto? (s/n): ")
@@ -65,14 +62,14 @@ def registro_de_producto():
                 break
             elif conf.lower() == 's':
                 Conn.conexion.execute('''
-                INSERT INTO productos (id, descripcion, precio, cantidad)
-                VALUES (?, ?, ?, ?)
-                ''', (id_producto, descripcion, precio, cantidad))
+                INSERT INTO productos (id, descripcion, precio, cantidad, fecha)
+                VALUES (?, ?, ?, ?, ?)
+                ''', (id_producto, descripcion, precio, cantidad, fecha_ingreso))
                 print("Producto registrado exitosamente:")
+                input("Presione cualquier tecla para continuar...")
                 Conn.conexion.commit()
-                return id_producto, descripcion, precio, cantidad
+                break
             else:
                 print("Opción no válida, por favor intente de nuevo.")
                 input("Presione cualquier tecla para continuar...")
                 continue
-    Conn.conexion.close()

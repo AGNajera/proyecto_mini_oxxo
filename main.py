@@ -38,7 +38,7 @@ def principal():
             print("Debe ingresar el valor que se le indique. Intente de nuevo.")
             input("Presione cualquier tecla para intentar de nuevo...")
             continue
-            
+
 
 if __name__ == "__main__":
     principal()
