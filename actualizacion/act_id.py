@@ -1,3 +1,4 @@
+from datetime import datetime
 import db.conexion as Conn
 import os
 
@@ -22,7 +23,7 @@ def cambio_id():
             print("Producto seleccionado de acuerdo al ID tecleado")
             for producto in cursor:
                 encontrado = True
-                print(f"\nID: {producto[0]}, Descripción: {producto[1]}, Precio: ${producto[2]}, Cantidad: {producto[3]}")
+                print(f"\nID: {producto[0]}, Descripción: {producto[1]}, Precio: ${producto[2]}, Cantidad: {producto[3]}, Fecha: {producto[4]}")
                 conf = ''
                 conf = input("\n¿Desea cambiar el ID de este producto? (s/n): ")
                 if conf.lower() == 'n':
@@ -31,6 +32,8 @@ def cambio_id():
                     return cambio_id()
                 elif conf.lower() == 's':
                     id_nuevo = input("Nuevo ID del producto (Debe de ser > a 0 y no debe de coincidir con uno registrado): ")
+                    fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                    print(f"Fecha del actualización: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
                     cursor = Conn.conexion.execute(f"SELECT id FROM productos WHERE id = {id_nuevo}")
                     if id_producto <= 0:
                         print("El ID del producto debe ser un número positivo.")

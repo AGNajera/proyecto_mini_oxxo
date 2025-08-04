@@ -1,3 +1,4 @@
+from datetime import datetime
 import db.conexion as Conn
 import os
 
@@ -22,7 +23,7 @@ def cambio_desc():
             print("Producto seleccionado de acuerdo al ID tecleado")
             for producto in cursor:
                 encontrado = True
-                print(f"\nID: {producto[0]}, Descripción: {producto[1]}, Precio: ${producto[2]}, Cantidad: {producto[3]}")
+                print(f"\nID: {producto[0]}, Descripción: {producto[1]}, Precio: ${producto[2]}, Cantidad: {producto[3]}, Fecha: {producto[4]}")
                 conf = ''
                 conf = input("\n¿Desea cambiar el ID de este producto? (s/n): ")
                 if conf.lower() == 'n':
@@ -31,6 +32,8 @@ def cambio_desc():
                     return cambio_desc()
                 elif conf.lower() == 's':
                     desc_nuevo = input("Nueva descripción del producto: ")
+                    fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                    print(f"Fecha del actualización: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
                     cursor = Conn.conexion.execute(f"SELECT descripcion FROM productos WHERE descripcion = '{desc_nuevo}'")
                     if desc_nuevo == "" or desc_nuevo == " ":
                         print("La descripción del producto no puede estar vacia o contener un espacio en blanco")
