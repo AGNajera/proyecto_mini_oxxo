@@ -45,7 +45,6 @@ def cambio_id(conexion):
                     else:
                         cursor = conexion.execute(f"UPDATE productos SET id = {id_nuevo} WHERE id = {id_producto}")
                         print("ID de producto actualizado.")
-                        input("Presione cualquier tecla para continuar...")
                         conexion.commit()
                         return
                 else:

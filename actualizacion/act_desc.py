@@ -48,8 +48,6 @@ def cambio_desc(conexion):
                             (desc_nuevo, id_producto)
                         )
                         print("Descripción de producto actualizada.")
-                        input("Presione cualquier tecla para continuar...")
-                        conexion.commit()
                         return
                 else:
                     print("Opción no válida, por favor intente de nuevo.")

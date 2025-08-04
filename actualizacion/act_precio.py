@@ -46,7 +46,6 @@ def cambio_precio(conexion):
                             (precio_nuevo, id_producto)
                         )
                     print("Descripción de producto actualizada.")
-                    input("Presione cualquier tecla para continuar...")
                     conexion.commit()
                     return
                 else:

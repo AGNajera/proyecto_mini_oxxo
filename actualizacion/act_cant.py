@@ -48,7 +48,6 @@ def act_cantidad(conexion):
                             (cant_nuevo, fecha_ingreso, id_producto)
                         )
                     print("Cantidad de producto actualizada.")
-                    input("Presione cualquier tecla para continuar...")
                     conexion.commit()
                     return
                 else:
