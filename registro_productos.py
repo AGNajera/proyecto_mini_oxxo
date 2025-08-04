@@ -6,10 +6,10 @@ from datetime import datetime
 def error_0():
     print("Debe de teclear un número mayor a 0.")
     input("Presione cualquier tecla para continuar...")
-    return registro_de_producto()
+    return
 
 
-def registro_de_producto():
+def registro_de_producto(conexion):
     while True:
         os.system("cls" if os.name == "nt" else "clear")
         conf = input("¿Desea registrar un producto? (s/n): ")
@@ -23,22 +23,22 @@ def registro_de_producto():
             if id_producto <= 0:
                 error_0()
                 continue
-            for id in Conn.conexion.execute("SELECT id FROM productos"):
+            for id in conexion.execute("SELECT id FROM productos"):
                 if id_producto == id[0]:
                     print("El ID del producto ya existe.")
                     input("Presione cualquier tecla para continuar...")
-                    return registro_de_producto()
+                    return registro_de_producto(conexion)
 
             descripcion = input("Descripción del producto: ")
-            for desc in Conn.conexion.execute("SELECT descripcion FROM productos"):
+            for desc in conexion.execute("SELECT descripcion FROM productos"):
                 if descripcion == desc[0]:
                     print("Este producto ya existe.")
                     input("Presione cualquier tecla para continuar...")
-                    return registro_de_producto()
+                    return registro_de_producto(conexion)
             if descripcion == "" or descripcion == " ":
                 print("La descripción del producto no puede estar vacía.")
                 input("Presione cualquier tecla para continuar...")
-                return registro_de_producto()
+                return registro_de_producto(conexion)
             precio = float(input("Precio del producto: "))
             if precio <= 0:
                 error_0()
@@ -51,7 +51,7 @@ def registro_de_producto():
             if cantidad == "" or cantidad == " ":
                 print("La cantidad del producto no puede estar vacía o contener un espacio en blanco.")
                 input("Presione cualquier tecla para continuar...")
-                return registro_de_producto()
+                return registro_de_producto(conexion)
             fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             print(f"Fecha de registro: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
             # Por si escribe cualquier cosa que no sea 's' o 'n'
@@ -61,13 +61,13 @@ def registro_de_producto():
                 print("Registro cancelado. Volviendo al menú principal...")
                 break
             elif conf.lower() == 's':
-                Conn.conexion.execute('''
+                conexion.execute('''
                 INSERT INTO productos (id, descripcion, precio, cantidad, fecha)
                 VALUES (?, ?, ?, ?, ?)
                 ''', (id_producto, descripcion, precio, cantidad, fecha_ingreso))
                 print("Producto registrado exitosamente:")
                 input("Presione cualquier tecla para continuar...")
-                Conn.conexion.commit()
+                conexion.commit()
                 break
             else:
                 print("Opción no válida, por favor intente de nuevo.")

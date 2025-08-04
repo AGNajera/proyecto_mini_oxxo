@@ -3,9 +3,9 @@ import db.conexion as Conn
 
 
 def crear_tabla_productos():
-    Conn.conexion = Conn.conexion_db()
+    conexion = Conn.conexion_db()
     try:
-        Conn.conexion.execute('''
+        conexion.execute('''
         CREATE TABLE productos (
             id INTEGER PRIMARY KEY,
             descripcion TEXT NOT NULL,
@@ -16,9 +16,9 @@ def crear_tabla_productos():
         print("Tabla 'productos' creada exitosamente.")
     except sqlite3.OperationalError:
         print("La tabla 'productos' ya existe.")
-    Conn.conexion.commit()
-    Conn.conexion.close()
-    return Conn.conexion
+    conexion.commit()
+    conexion.close()
+    return conexion
 
 
 crear_tabla_productos()

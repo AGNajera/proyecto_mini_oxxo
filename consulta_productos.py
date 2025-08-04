@@ -2,7 +2,7 @@ import os
 import db.conexion as Conn
 
 
-def consulta_de_producto():
+def consulta_de_producto(conexion):
     while True:
         os.system("cls" if os.name == "nt" else "clear")
         print("CONSULTA DE PRODUCTOS")
@@ -15,7 +15,7 @@ def consulta_de_producto():
         if opcion == '1':
             os.system("cls" if os.name == "nt" else "clear")
             print("PRODUCTOS REGISTRADOS:")
-            cursor = Conn.conexion.execute("SELECT * FROM productos")
+            cursor = conexion.execute("SELECT * FROM productos")
             for producto in cursor:
                 print(f"ID: {producto[0]}, Descripción: {producto[1]}, Precio: ${producto[2]}, Cantidad: {producto[3]}, Fecha: {producto[4]}")
             input("Presione cualquier tecla para continuar...")
@@ -24,7 +24,7 @@ def consulta_de_producto():
             encontrado = None
             os.system("cls" if os.name == "nt" else "clear")
             id_producto = int(input("Ingrese el ID del producto a consultar: "))
-            cursor = Conn.conexion.execute(f"SELECT * FROM productos WHERE id = {id_producto}")
+            cursor = conexion.execute(f"SELECT * FROM productos WHERE id = {id_producto}")
             for producto in cursor:
                 encontrado = True
                 os.system("cls" if os.name == "nt" else "clear")

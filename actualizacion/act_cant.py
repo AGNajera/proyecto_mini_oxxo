@@ -3,7 +3,7 @@ import db.conexion as Conn
 import os
 
 
-def act_cantidad():
+def act_cantidad(conexion):
     while True:
         os.system("cls" if os.name == "nt" else "clear")
         print("ACTUALIZAR CANTIDAD DE UN PRODUCTO")
@@ -18,8 +18,8 @@ def act_cantidad():
             if id_producto <= 0:
                 print("El ID del producto debe mayor a 0.")
                 input("Presione cualquier tecla para continuar...")
-                return act_cantidad()
-            cursor = Conn.conexion.execute(f"SELECT * FROM productos WHERE id = {id_producto}")
+                return act_cantidad(conexion)
+            cursor = conexion.execute(f"SELECT * FROM productos WHERE id = {id_producto}")
             print("Producto seleccionado de acuerdo al ID tecleado")
             for producto in cursor:
                 encontrado = True
@@ -29,28 +29,28 @@ def act_cantidad():
                 if conf.lower() == 'n':
                     print("No se ha realizado ningún cambio.")
                     input("Presione cualquier tecla para continuar...")
-                    return act_cantidad()
+                    return act_cantidad(conexion)
                 elif conf.lower() == 's':
                     cant_nuevo = float(input("Nueva cantidad del producto: "))
                     fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                     print(f"Fecha del actualización: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
-                    cursor = Conn.conexion.execute(f"SELECT cantidad FROM productos WHERE cantidad = {cant_nuevo}")
+                    cursor = conexion.execute(f"SELECT cantidad FROM productos WHERE cantidad = {cant_nuevo}")
                     if cant_nuevo == "" or cant_nuevo == " ":
                         print("La cantidad del producto no puede estar vacia o contener un espacio en blanco")
                         input("Presione cualquier tecla para continuar...")
-                        return act_cantidad()
+                        return act_cantidad(conexion)
                     if cant_nuevo <=0:
                         print("La cantidad debe de ser mayor a 0")
                         input("Presione cualquier tecla para continuar...")
-                        return act_cantidad()
+                        return act_cantidad(conexion)
                     else:
-                        cursor = Conn.conexion.execute(
+                        cursor = conexion.execute(
                             "UPDATE productos SET cantidad = cantidad + ?, fecha = ? WHERE id = ?",
                             (cant_nuevo, fecha_ingreso, id_producto)
                         )
                     print("Cantidad de producto actualizada.")
                     input("Presione cualquier tecla para continuar...")
-                    Conn.conexion.commit()
+                    conexion.commit()
                     return
                 else:
                     print("Opción no válida, por favor intente de nuevo.")

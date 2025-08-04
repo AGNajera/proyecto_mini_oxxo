@@ -7,6 +7,7 @@ import db.productos # Crea la tabla sin hacer nada más
 
 
 def principal():
+    conexion = Conn.conexion_db()
     while True:
         os.system("cls" if os.name == "nt" else "clear")
         print("Seleccione la opción deseada:")
@@ -17,19 +18,18 @@ def principal():
         print("5.- Salir")
         opcion = input("Ingrese el número de la opción: ")
         try:
-            Conn.conexion = Conn.conexion_db()
             if opcion == "1":
-                r.registro_de_producto()
+                r.registro_de_producto(conexion)
                 input("Presione cualquier tecla para continuar...")
             elif opcion == "2":
-                c.consulta_de_producto()
+                c.consulta_de_producto(conexion)
                 input("Presione cualquier tecla para continuar...")
             elif opcion == "3":
-                a.actualizar_producto()
+                a.actualizar_producto(conexion)
                 input("Presione cualquier tecla para continuar...")
             elif opcion == "5":
                 print("Saliendo del programa...")
-                Conn.conexion.close()
+                conexion.close()
                 break
             else:
                 print("Opción no válida...")

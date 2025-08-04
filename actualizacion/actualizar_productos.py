@@ -6,7 +6,7 @@ import actualizacion.act_cant as act_cant
 
 
 
-def actualizar_producto():
+def actualizar_producto(conexion):
     while True:
         os.system("cls" if os.name == "nt" else "clear")
         print("ACTUALIZACIÓN DE PRODUCTOS")
@@ -19,13 +19,13 @@ def actualizar_producto():
         print("6.- Volver al menú principal")
         opcion = input("Ingrese el número de la opción: ")
         if opcion == '1':
-            act_id.cambio_id()
+            act_id.cambio_id(conexion)
         elif opcion == '2':
-            act_desc.cambio_desc()
+            act_desc.cambio_desc(conexion)
         elif opcion == '3':
-            act_precio.cambio_precio()
+            act_precio.cambio_precio(conexion)
         elif opcion == '4':
-            act_cant.act_cantidad()
+            act_cant.act_cantidad(conexion)
         elif opcion == '6':
             print("Volviendo al menú principal...")
             break

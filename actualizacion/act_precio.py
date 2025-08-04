@@ -2,7 +2,7 @@ from datetime import datetime
 import db.conexion as Conn
 import os
 
-def cambio_precio():
+def cambio_precio(conexion):
     while True:
         os.system("cls" if os.name == "nt" else "clear")
         print("ACTUALIZAR PRECIO DE UN PRODUCTO")
@@ -17,8 +17,8 @@ def cambio_precio():
             if id_producto <= 0:
                 print("El ID del producto debe mayor a 0.")
                 input("Presione cualquier tecla para continuar...")
-                return cambio_precio()
-            cursor = Conn.conexion.execute(f"SELECT * FROM productos WHERE id = {id_producto}")
+                return cambio_precio(conexion)
+            cursor = conexion.execute(f"SELECT * FROM productos WHERE id = {id_producto}")
             print("Producto seleccionado de acuerdo al ID tecleado")
             for producto in cursor:
                 encontrado = True
@@ -28,26 +28,26 @@ def cambio_precio():
                 if conf.lower() == 'n':
                     print("No se ha realizado ningún cambio.")
                     input("Presione cualquier tecla para continuar...")
-                    return cambio_precio()
+                    return cambio_precio(conexion)
                 elif conf.lower() == 's':
                     precio_nuevo = float(input("Nuevo precio del producto: "))
                     fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                     print(f"Fecha del actualización: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
-                    cursor = Conn.conexion.execute(f"SELECT precio FROM productos WHERE precio = {precio_nuevo}")
+                    cursor = conexion.execute(f"SELECT precio FROM productos WHERE precio = {precio_nuevo}")
                     if precio_nuevo == "" or precio_nuevo == " ":
                         print("El precio del producto no puede estar vacio o contener un espacio en blanco")
                         input("Presione cualquier tecla para continuar...")
-                        return cambio_precio()
+                        return cambio_precio(conexion)
                     if precio_nuevo <=0:
                         print("El precio debe de ser mayor a 0")
                     else:
-                        cursor = Conn.conexion.execute(
+                        cursor = conexion.execute(
                             "UPDATE productos SET precio = ? WHERE id = ?",
                             (precio_nuevo, id_producto)
                         )
                     print("Descripción de producto actualizada.")
                     input("Presione cualquier tecla para continuar...")
-                    Conn.conexion.commit()
+                    conexion.commit()
                     return
                 else:
                     print("Opción no válida, por favor intente de nuevo.")
