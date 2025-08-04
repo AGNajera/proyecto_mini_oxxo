@@ -1,5 +1,4 @@
 import os
-import db.conexion as Conn
 from datetime import datetime
 
 
@@ -66,7 +65,6 @@ def registro_de_producto(conexion):
                 VALUES (?, ?, ?, ?, ?)
                 ''', (id_producto, descripcion, precio, cantidad, fecha_ingreso))
                 print("Producto registrado exitosamente:")
-                input("Presione cualquier tecla para continuar...")
                 conexion.commit()
                 break
             else:
