@@ -5,7 +5,6 @@ import actualizacion.act_precio as act_precio
 import actualizacion.act_cant as act_cant
 
 
-
 def actualizar_producto(conexion):
     while True:
         os.system("cls" if os.name == "nt" else "clear")

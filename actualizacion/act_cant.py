@@ -1,5 +1,4 @@
 from datetime import datetime
-import db.conexion as Conn
 import os
 
 
@@ -33,13 +32,13 @@ def act_cantidad(conexion):
                 elif conf.lower() == 's':
                     cant_nuevo = float(input("Nueva cantidad del producto: "))
                     fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-                    print(f"Fecha del actualización: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
+                    print(f"Fecha del actualización: {fecha_ingreso}")
                     cursor = conexion.execute(f"SELECT cantidad FROM productos WHERE cantidad = {cant_nuevo}")
                     if cant_nuevo == "" or cant_nuevo == " ":
                         print("La cantidad del producto no puede estar vacia o contener un espacio en blanco")
                         input("Presione cualquier tecla para continuar...")
                         return act_cantidad(conexion)
-                    if cant_nuevo <=0:
+                    if cant_nuevo <= 0:
                         print("La cantidad debe de ser mayor a 0")
                         input("Presione cualquier tecla para continuar...")
                         return act_cantidad(conexion)

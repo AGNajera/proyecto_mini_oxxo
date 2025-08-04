@@ -1,6 +1,6 @@
 from datetime import datetime
-import db.conexion as Conn
 import os
+
 
 def cambio_precio(conexion):
     while True:
@@ -32,7 +32,7 @@ def cambio_precio(conexion):
                 elif conf.lower() == 's':
                     precio_nuevo = float(input("Nuevo precio del producto: "))
                     fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-                    print(f"Fecha del actualización: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
+                    print(f"Fecha del actualización: {fecha_ingreso}")
                     cursor = conexion.execute(f"SELECT precio FROM productos WHERE precio = {precio_nuevo}")
                     if precio_nuevo == "" or precio_nuevo == " ":
                         print("El precio del producto no puede estar vacio o contener un espacio en blanco")

@@ -1,5 +1,4 @@
 from datetime import datetime
-import db.conexion as Conn
 import os
 
 
@@ -33,7 +32,7 @@ def cambio_desc(conexion):
                 elif conf.lower() == 's':
                     desc_nuevo = input("Nueva descripción del producto: ")
                     fecha_ingreso = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-                    print(f"Fecha del actualización: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
+                    print(f"Fecha del actualización: {fecha_ingreso}")
                     cursor = conexion.execute(f"SELECT descripcion FROM productos WHERE descripcion = '{desc_nuevo}'")
                     if desc_nuevo == "" or desc_nuevo == " ":
                         print("La descripción del producto no puede estar vacia o contener un espacio en blanco")

@@ -1,5 +1,4 @@
 import os
-import db.conexion as Conn
 
 
 def consulta_de_producto(conexion):
