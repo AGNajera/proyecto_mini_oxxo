@@ -3,6 +3,7 @@ import db.conexion as Conn
 import registro_productos as r
 import consulta_productos as c
 import actualizacion.actualizar_productos as a
+import eliminar_productos as e
 import db.productos  # Crea la tabla sin hacer nada más
 
 
@@ -26,6 +27,9 @@ def principal():
                 input("Presione cualquier tecla para continuar...")
             elif opcion == "3":
                 a.actualizar_producto(conexion)
+                input("Presione cualquier tecla para continuar...")
+            elif opcion == "4":
+                e.eliminar(conexion)
                 input("Presione cualquier tecla para continuar...")
             elif opcion == "5":
                 print("Saliendo del programa...")
